@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 		// через время снова включаем кнопку
 		setTimeout(() => {
 			fortuneButton.classList.remove("disabled");
-			fortuneButton.innerText = "Крутонём ещё раз?";
+			fortuneButton.innerText = "Крутанём ещё раз?";
 		}, (time + 2) * 1000);
 	});
 
