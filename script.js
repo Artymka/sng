@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 		"Вам будет несладко - Вы сядите на диету",
 		"Вы станете основателем самого популярного мемного паблика",
 		"Вы откроете формулу 99%-го леденца",
+		"Вы примете таблетки, но никто из Ваших друзей не исчезнет",
 	];
 
 	const icons = [
@@ -53,22 +54,96 @@ document.addEventListener("DOMContentLoaded", function (e) {
 		"😼",
 	];
 
-	// Пользователь может только крутить слайдер, останавливается он через заданное время.
-	// Время чуть-чуть можно рандомизировать, чтобы были разные интервалы.
-	// При нажатии на кнопку генерируется определённое кол-во карточек, они добавляются в
-	// контейнер. Также рассчитывается расстояние, на которое должен проехать контейнер, и
-	// время, за которое он должен это сделать. Контейнеру задаётся transition с анимирующей
-	// функцией, замедляющей скорость под конец. Карточки должны переместиться так, чтобы
-	// одна из них была точно посередине слайдера.
+	// делаем приветствие
+	const celebration = document.getElementById("celebration");
+	const phrase1 = document.getElementById("phrase1");
+	const phrase2 = document.getElementById("phrase2");
+	const phrase3 = document.getElementById("phrase3");
+	const phrase4 = document.getElementById("phrase4");
+	const phrase5 = document.getElementById("phrase5");
+	const celebrationButton = document.getElementById("go");
+
+	let animationDelay = 2000;
+
+	setTimeout(() => {
+		phrase1.classList.remove("hidden");
+	}, animationDelay);
+	animationDelay += 3000;
+
+	setTimeout(() => {
+		phrase1.classList.add("hidden");
+	}, animationDelay);
+	animationDelay += 500;
+
+	setTimeout(() => {
+		phrase2.classList.remove("hidden");
+	}, animationDelay);
+	animationDelay += 1000;
+
+	setTimeout(() => {
+		phrase2.classList.add("hidden");
+	}, animationDelay);
+	animationDelay += 500;
+
+	setTimeout(() => {
+		phrase3.classList.remove("hidden");
+	}, animationDelay);
+	animationDelay += 1000;
+
+	setTimeout(() => {
+		phrase3.classList.add("hidden");
+	}, animationDelay);
+	animationDelay += 500;
+
+	setTimeout(() => {
+		phrase4.classList.remove("hidden");
+	}, animationDelay);
+	animationDelay += 1000;
+
+	setTimeout(() => {
+		phrase4.classList.add("hidden");
+	}, animationDelay);
+	animationDelay += 500;
+
+	setTimeout(() => {
+		phrase5.classList.remove("hidden");
+	}, animationDelay);
+	animationDelay += 1000;
+
+	setTimeout(() => {
+		celebrationButton.classList.remove("hidden");
+	}, animationDelay);
+
+	celebrationButton.addEventListener("click", function (e) {
+		celebration.classList.add("moving");
+	});
 
 	// регуляция размеров карточек
-	const cardWidth = 250;
-	const cardHeight = 200;
+	let cardWidth = 250;
+	let cardHeight = 200;
+	let sliderContains = 3;
+	let distRest = 3;
+	if (document.documentElement.clientWidth < 800) {
+		cardWidth = 200;
+		cardHeight = 200;
+
+		if (document.documentElement.clientWidth < 640) {
+			sliderContains = 2;
+			distRest = 2.5;
+
+			if (document.documentElement.clientWidth < 440) {
+				// cardWidth = 150;
+				// cardHeight = 200;
+				sliderContains = 1;
+				distRest = 2;
+			}
+		}
+	}
 
 	// крутилка
 	const slider = document.querySelector(".slider");
 	slider.style.height = cardHeight + "px";
-	slider.style.width = cardWidth * 3 + "px";
+	slider.style.width = cardWidth * sliderContains + "px";
 
 	// движущийся контейнер с карточками
 	const cardsContainer = document.getElementById("cards-container");
@@ -108,7 +183,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 		cardsContainer.style.width = cardsContainerWidth + "px";
 
 		// расстояние, которое пройдёт контйнер карточек
-		const dist = (cardsCount - 3) * cardWidth;
+		const dist = (cardsCount - distRest) * cardWidth;
 
 		// время, которое будет крутиться слайдер
 		const time = 8;
@@ -145,27 +220,18 @@ document.addEventListener("DOMContentLoaded", function (e) {
 
 		fortuneButton.classList.add("disabled");
 
+		// подсвечиваем выпавшую карточку
+		setTimeout(() => {
+			const cards = document.querySelectorAll(".slider__card");
+			cards[cards.length - 2].classList.add("chosen");
+		}, (time + 1) * 1000);
+
 		// через время снова включаем кнопку
 		setTimeout(() => {
 			fortuneButton.classList.remove("disabled");
 			fortuneButton.innerText = "Крутанём ещё раз?";
 		}, (time + 2) * 1000);
 	});
-
-	// тестирование randInt()
-	// console.log("Рандомные числа от 1 до 10");
-	// for (let i = 0; i < 100; i++) {
-	// 	let randNum = randInt(1, 10);
-	// 	if (randNum > 10 || randNum < 1) {
-	// 		console.log(randNum);
-	// 	}
-	// 	if (randNum == 10) {
-	// 		console.log("Получили 10");
-	// 	}
-	// 	if (randNum == 1) {
-	// 		console.log("Получили 1");
-	// 	}
-	// }
 
 	function randInt(beg, end) {
 		let rand = Math.random();
