@@ -115,6 +115,7 @@ document.addEventListener("DOMContentLoaded", function (e) {
 	}, animationDelay);
 
 	celebrationButton.addEventListener("click", function (e) {
+		e.preventDefault();
 		celebration.classList.add("moving");
 	});
 
