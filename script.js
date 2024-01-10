@@ -117,6 +117,9 @@ document.addEventListener("DOMContentLoaded", function (e) {
 	celebrationButton.addEventListener("click", function (e) {
 		e.preventDefault();
 		celebration.classList.add("moving");
+		setTimeout(() => {
+			celebration.style.display = "none";
+		}, 2000);
 	});
 
 	// регуляция размеров карточек
